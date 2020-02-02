@@ -1,0 +1,28 @@
+$green: #31b87a;
+$action-green: #2dae73;
+
+button {
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  background-color: $green;
+  border: none;
+  border-radius: 2em;
+  color: #fff;
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 100;
+  text-decoration: none;
+  user-select: none;
+  letter-spacing: 1px;
+  padding: 0.7rem 3rem;
+  text-transform: uppercase;
+  transition: all 0.1s ease-out;
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: $action-green;
+    transform: scale(0.95);
+    color: #fff;
+  }
+}
