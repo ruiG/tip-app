@@ -12,7 +12,9 @@ const Form = () => {
   const [form, setForm] = useState({
     countryCode: "",
     bill: null,
-    tipPercent: 0
+    review: null,
+    tipPercent: null,
+    total: null
   });
 
   const setCountry = countryCode => {
@@ -29,6 +31,13 @@ const Form = () => {
     setForm({ ...form, bill });
   };
 
+  const setReview = review => {
+    if (step < 3) {
+      setStep(3);
+    }
+    setForm({ ...form, review });
+  };
+
   console.log(step, form);
 
   return (
@@ -41,7 +50,10 @@ const Form = () => {
         />
       ) : null}
       {step >= 1 ? <Bill bill={form.bill} onSetBill={setBill} /> : null}
-      {step >= 2 ? <Review /> : null}
+      {step >= 2 ? (
+        <Review review={form.review} onSetReview={setReview} />
+      ) : null}
+      {step >= 3 ? <Info /> : null}
     </div>
   );
 };
