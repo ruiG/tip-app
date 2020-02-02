@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import * as R from "rambda";
+import { InputNumber, Select } from "antd";
 import countriesData from "../../config/data.json";
+import "./Form.scss";
 import Review from "../Review";
 
-function Form() {
+const { Option } = Select;
+
+const Form = () => {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
     countryCode: "",
-    bill: 0,
+    bill: null,
     tipPercent: 0
   });
 
@@ -25,11 +29,10 @@ function Form() {
     setForm({ ...form, bill });
   };
 
-  console.log(step, form)
+  console.log(step, form);
 
   return (
     <div className="form">
-      <h1>Where are you?</h1>
       {step >= 0 ? (
         <CountrySelect
           countries={countriesData}
@@ -41,45 +44,51 @@ function Form() {
       {step >= 2 ? <Review /> : null}
     </div>
   );
-}
+};
 
 const Bill = ({ bill, onSetBill }) => {
-  const handleSetBill = event => {
-    console.log(event);
-    onSetBill(event.target.value);
+  const handleSetBill = value => {
+    onSetBill(value);
   };
 
   return (
-    <div>
-      <input onChange={handleSetBill} type="tel" pattern="[0-9]*" noValidate value={bill}/>
+    <div className="form__input">
+      <InputNumber
+        placeholder={"How much is the bill?"}
+        min={1}
+        defaultValue={bill}
+        onChange={handleSetBill}
+        style={{ width: "100%" }}
+      />
     </div>
   );
 };
 
 const Info = () => <div>Info</div>;
 
-const CountrySelect = ({ countries, selectedCountry, onSetCountry }) => {
+const CountrySelect = ({ countries, onSetCountry }) => {
   const countryOption = ({ countryKey, name }) => (
-    <option key={countryKey} value={countryKey}>
+    <Option key={countryKey} value={countryKey}>
       {name}
-    </option>
+    </Option>
   );
 
-  const handleSetCountry = event => {
-    onSetCountry(event.target.value);
+  const handleSetCountry = country => {
+    onSetCountry(country);
   };
 
   const countryOptions = R.map(countryOption, R.values(countries));
 
   return (
-    <select
-      id="countrySelect"
-      onChange={handleSetCountry}
-      value={selectedCountry}
-    >
-      <option value="">Select a Country</option>
-      {countryOptions}
-    </select>
+    <div className="form__input">
+      <Select
+        placeholder="Where are you?"
+        onChange={handleSetCountry}
+        style={{ width: "100%" }}
+      >
+        {countryOptions}
+      </Select>
+    </div>
   );
 };
 

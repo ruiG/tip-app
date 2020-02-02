@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './Review.scss'
+import "./Review.scss";
 
 const Review = () => {
   return (
