@@ -90,7 +90,6 @@ const Bill = ({ bill, onSetBill }) => {
         defaultValue={bill}
         size="large"
         onChange={handleSetBill}
-        size="large"
         style={{ width: "100%" }}
       />
     </div>
