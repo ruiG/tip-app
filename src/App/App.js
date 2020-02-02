@@ -16,7 +16,13 @@ function App() {
         <img src={logo} className="tipsy__logo__img" alt="Tipsy" />
       </div>
 
-      {activeForm ? <Form /> : <button onClick={handleStart}>Start</button>}
+      {activeForm ? (
+        <Form />
+      ) : (
+        <button className="tipsy__start" onClick={handleStart}>
+          Start
+        </button>
+      )}
     </div>
   );
 }
