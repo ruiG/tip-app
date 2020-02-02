@@ -1,0 +1,11 @@
+.tipsy {
+  display: flex;
+
+  &__logo {
+    max-width: 300px;
+
+    &__img {
+      width: 100%;
+    }
+  }
+}
