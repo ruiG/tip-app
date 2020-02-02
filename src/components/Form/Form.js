@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as R from "rambda";
-import { InputNumber, Select } from "antd";
+import { InputNumber, Select, Spin, Typography } from "antd";
 import countriesData from "../../config/data.json";
 import { getTipPercent, getTotal } from "../../util/formulas";
 import "./Form.scss";
 import Review from "../Review";
+import Button from "../Button";
 
 const { Option } = Select;
+const { Title } = Typography;
 
 const Form = () => {
   const [step, setStep] = useState(0);
@@ -50,23 +52,25 @@ const Form = () => {
     });
   };
 
-  console.log(step, form);
-
   return (
     <div className="form">
-      {step >= 0 ? (
+      {step >= 0 && step !== 4 ? (
         <CountrySelect
           countries={countriesData}
           selectedCountry={form.countryCode}
           onSetCountry={setCountry}
         />
       ) : null}
-      {step >= 1 ? <Bill bill={form.bill} onSetBill={setBill} /> : null}
-      {step >= 2 ? (
+      {step >= 1 && step !== 4 ? (
+        <Bill bill={form.bill} onSetBill={setBill} />
+      ) : null}
+      {step >= 2 && step !== 4 ? (
         <Review review={form.review} onSetReview={setReview} />
       ) : null}
-      {step >= 3 ? <Calculate onCalculate={setCalculate} /> : null}
-      {step >= 4 ? (
+      {step >= 3 && step !== 4 ? (
+        <Button onClick={setCalculate} label={"Calculate"} />
+      ) : null}
+      {step === 4 ? (
         <Info tipPercent={form.tipPercent} total={form.total} />
       ) : null}
     </div>
@@ -86,28 +90,33 @@ const Bill = ({ bill, onSetBill }) => {
         defaultValue={bill}
         size="large"
         onChange={handleSetBill}
+        size="large"
         style={{ width: "100%" }}
       />
     </div>
   );
 };
 
-const Calculate = ({ onCalculate }) => (
-  <button onClick={onCalculate}>Calculate</button>
-);
+const Info = ({ tipPercent, total }) => {
+  const [isLoading, setIsLoading] = useState(true);
 
-const Info = ({ tipPercent, total }) => (
-  <div>
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 2000);
+
+  return isLoading ? (
+    <Spin size="large" />
+  ) : (
     <div>
-      <span>Tip %: </span>
-      <span>{tipPercent}</span>
+      <Title level={2}>
+        Voila <span>🎉</span>
+      </Title>
+      <Title
+        level={4}
+      >{`We suggest a tip of ${tipPercent}%, adding to a total of ${total}`}</Title>
     </div>
-    <div>
-      <span>Total: </span>
-      <span>{total}</span>
-    </div>
-  </div>
-);
+  );
+};
 
 const CountrySelect = ({ countries, onSetCountry }) => {
   const countryOption = ({ countryKey, name }) => (
@@ -127,6 +136,7 @@ const CountrySelect = ({ countries, onSetCountry }) => {
       <Select
         placeholder="Where are you?"
         onChange={handleSetCountry}
+        size="large"
         style={{ width: "100%" }}
       >
         {countryOptions}
