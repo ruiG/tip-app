@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as R from "rambda";
 import countriesData from "../../config/data.json";
+import { getTipPercent, getTotal } from "../../util/formulas";
 import Review from "../Review";
 
 function Form() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
     countryCode: "",
-    bill: 0,
+    bill: null,
     review: null,
     tipPercent: null,
-    total: null, 
+    total: null
   });
 
   const setCountry = countryCode => {
@@ -34,6 +35,17 @@ function Form() {
     setForm({ ...form, review });
   };
 
+  const setCalculate = () => {
+    if (step < 4) {
+      setStep(4);
+    }
+    setForm({
+      ...form,
+      tipPercent: getTipPercent(form),
+      total: getTotal(form)
+    });
+  };
+
   console.log(step, form);
 
   return (
@@ -47,8 +59,11 @@ function Form() {
         />
       ) : null}
       {step >= 1 ? <Bill bill={form.bill} onSetBill={setBill} /> : null}
-      {step >= 2 ? <Review review={form.review} onSetReview={setReview} /> : null}
-      {step >= 3 ? <Info/> : null}
+      {step >= 2 ? (
+        <Review review={form.review} onSetReview={setReview} />
+      ) : null}
+      {step >= 3 ? <Calculate onCalculate={setCalculate} /> : null}
+      {step >= 4 ? <Info tipPercent={form.tipPercent} total={form.total}/> : null}
     </div>
   );
 }
@@ -71,7 +86,22 @@ const Bill = ({ bill, onSetBill }) => {
   );
 };
 
-const Info = () => <div>Info</div>;
+const Calculate = ({ onCalculate }) => (
+  <button onClick={onCalculate}>Calculate</button>
+);
+
+const Info = ({ tipPercent, total }) => (
+  <div>
+    <div>
+      <span>Tip %: </span>
+      <span>{tipPercent}</span>
+    </div>
+    <div>
+      <span>Total: </span>
+      <span>{total}</span>
+    </div>
+  </div>
+);
 
 const CountrySelect = ({ countries, selectedCountry, onSetCountry }) => {
   const countryOption = ({ countryKey, name }) => (
