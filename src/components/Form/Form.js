@@ -66,7 +66,9 @@ const Form = () => {
         <Review review={form.review} onSetReview={setReview} />
       ) : null}
       {step >= 3 ? <Calculate onCalculate={setCalculate} /> : null}
-      {step >= 4 ? <Info tipPercent={form.tipPercent} total={form.total}/> : null}
+      {step >= 4 ? (
+        <Info tipPercent={form.tipPercent} total={form.total} />
+      ) : null}
     </div>
   );
 };
@@ -82,6 +84,7 @@ const Bill = ({ bill, onSetBill }) => {
         placeholder={"How much is the bill?"}
         min={1}
         defaultValue={bill}
+        size="large"
         onChange={handleSetBill}
         style={{ width: "100%" }}
       />
