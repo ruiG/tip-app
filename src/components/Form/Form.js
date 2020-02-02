@@ -11,10 +11,6 @@ function Form() {
     tipPercent: 0
   });
 
-  const handleNextState = step => {
-    setStep(step);
-  };
-
   const setCountry = countryCode => {
     if (step < 1) {
       setStep(1);
@@ -28,6 +24,8 @@ function Form() {
     }
     setForm({ ...form, bill });
   };
+
+  console.log(step, form)
 
   return (
     <div className="form">
@@ -53,7 +51,7 @@ const Bill = ({ bill, onSetBill }) => {
 
   return (
     <div>
-      <input onChange={handleSetBill} type="tel" pattern="[0-9]*" novalidate />
+      <input onChange={handleSetBill} type="tel" pattern="[0-9]*" noValidate value={bill}/>
     </div>
   );
 };
