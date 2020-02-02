@@ -8,7 +8,7 @@ import Review from "../Review";
 import Button from "../Button";
 
 const { Option } = Select;
-const { Title } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 const Form = () => {
   const [step, setStep] = useState(0);
@@ -101,18 +101,19 @@ const Info = ({ tipPercent, total }) => {
 
   setTimeout(() => {
     setIsLoading(false);
-  }, 2000);
+  }, 1000);
 
   return isLoading ? (
     <Spin size="large" />
   ) : (
     <div>
-      <Title level={2}>
+      <Title level={2} style={{ textAlign: "center" }}>
         Voila <span>🎉</span>
       </Title>
-      <Title
-        level={4}
-      >{`We suggest a tip of ${tipPercent}%, adding to a total of ${total}`}</Title>
+      <Paragraph level={4}>
+        We suggest a tip of <Text strong>{tipPercent}%</Text>, adding to a total
+        of <Text strong>{total}</Text>.
+      </Paragraph>
     </div>
   );
 };

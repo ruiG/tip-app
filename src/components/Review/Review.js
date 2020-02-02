@@ -3,7 +3,6 @@ import "./Review.scss";
 
 const Review = ({ review, onSetReview }) => {
   const handleSetReview = event => {
-    console.log(event.target.value);
     onSetReview(event.target.value);
   };
   return (

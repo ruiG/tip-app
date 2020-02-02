@@ -2,8 +2,8 @@
   "dk": {
     "countryKey": "dk",
     "name": "Denmark",
-    "minPercentage": 10,
-    "maxPercentage": 20
+    "minPercentage": 11,
+    "maxPercentage": 12
   },
   "pt": {
     "countryKey": "pt",
