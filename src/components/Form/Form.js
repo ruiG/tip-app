@@ -88,6 +88,7 @@ const Bill = ({ bill, onSetBill }) => {
         placeholder={"How much is the bill?"}
         min={1}
         defaultValue={bill}
+        size="large"
         onChange={handleSetBill}
         size="large"
         style={{ width: "100%" }}
