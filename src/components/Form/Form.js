@@ -8,7 +8,9 @@ function Form() {
   const [form, setForm] = useState({
     countryCode: "",
     bill: 0,
-    tipPercent: 0
+    review: null,
+    tipPercent: null,
+    total: null, 
   });
 
   const setCountry = countryCode => {
@@ -25,7 +27,14 @@ function Form() {
     setForm({ ...form, bill });
   };
 
-  console.log(step, form)
+  const setReview = review => {
+    if (step < 3) {
+      setStep(3);
+    }
+    setForm({ ...form, review });
+  };
+
+  console.log(step, form);
 
   return (
     <div className="form">
@@ -38,20 +47,26 @@ function Form() {
         />
       ) : null}
       {step >= 1 ? <Bill bill={form.bill} onSetBill={setBill} /> : null}
-      {step >= 2 ? <Review /> : null}
+      {step >= 2 ? <Review review={form.review} onSetReview={setReview} /> : null}
+      {step >= 3 ? <Info/> : null}
     </div>
   );
 }
 
 const Bill = ({ bill, onSetBill }) => {
   const handleSetBill = event => {
-    console.log(event);
     onSetBill(event.target.value);
   };
 
   return (
     <div>
-      <input onChange={handleSetBill} type="tel" pattern="[0-9]*" noValidate value={bill}/>
+      <input
+        onChange={handleSetBill}
+        type="tel"
+        pattern="[0-9]*"
+        noValidate
+        value={bill}
+      />
     </div>
   );
 };
