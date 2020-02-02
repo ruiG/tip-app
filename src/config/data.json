@@ -1,6 +1,26 @@
 {
-  "dk": { "name": "Denmark", "minPercentage": 10, "maxPercentage": 20 },
-  "pt": { "name": "Portugal", "minPercentage": 10, "maxPercentage": 20 },
-  "ro": { "name": "Romania", "minPercentage": 10, "maxPercentage": 20 },
-  "us": { "name": "United States", "minPercentage": 10, "maxPercentage": 20 }
+  "dk": {
+    "countryKey": "dk",
+    "name": "Denmark",
+    "minPercentage": 10,
+    "maxPercentage": 20
+  },
+  "pt": {
+    "countryKey": "pt",
+    "name": "Portugal",
+    "minPercentage": 10,
+    "maxPercentage": 20
+  },
+  "ro": {
+    "countryKey": "ro",
+    "name": "Romania",
+    "minPercentage": 10,
+    "maxPercentage": 20
+  },
+  "us": {
+    "countryKey": "us",
+    "name": "United States",
+    "minPercentage": 10,
+    "maxPercentage": 20
+  }
 }
