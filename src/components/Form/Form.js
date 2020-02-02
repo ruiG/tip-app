@@ -4,29 +4,45 @@ import countriesData from "../../config/data.json";
 
 function Form() {
   const [step, setStep] = useState(0);
+  const [form, setForm] = useState({
+    countryCode: "",
+    bill: 0,
+    tipPercent: 0
+  });
 
   const handleNextState = step => {
     setStep(step);
   };
 
+  const setCountry = countryCode => {
+    setForm({ ...form, countryCode });
+  };
+
   return (
     <div className="form">
       <h1>Where are you?</h1>
-      <CountrySelect countries={countriesData} />
+      <CountrySelect
+        countries={countriesData}
+        selectedCountry={form.countryCode}
+        onSetCountry={setCountry}
+      />
     </div>
   );
 }
 
-const CountrySelect = ({ countries }) => {
+const CountrySelect = ({ countries, selectedCountry, onSetCountry }) => {
   const countryOption = ({ countryKey, name }) => (
-    <option value={countryKey}>{name}</option>
+    <option key={countryKey} value={countryKey}>{name}</option>
   );
+
+  const handleSetCountry = event => {
+    onSetCountry(event.target.value);
+  };
 
   const countryOptions = R.map(countryOption, R.values(countries));
 
-  console.log(countryOptions);
   return (
-    <select>
+    <select id="countrySelect" onChange={handleSetCountry} value={selectedCountry}>
       <option value="">Select a Country</option>
       {countryOptions}
     </select>
