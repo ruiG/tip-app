@@ -8,7 +8,7 @@
     "@testing-library/user-event": "10.0.0",
     "antd": "4.1.4",
     "node-sass": "4.13.1",
-    "rambda": "4.6.0",
+    "rambda": "5.1.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-scripts": "3.4.0",
